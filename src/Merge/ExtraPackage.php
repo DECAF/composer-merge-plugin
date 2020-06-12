@@ -426,6 +426,22 @@ class ExtraPackage
             return;
         }
 
+        $extraConfig = null;
+        if (isset($extra['config'])) {
+            $extraConfig = $extra['config'];
+            unset($extra['config']);
+            if ($state->shouldMergeExtraConfig()) {
+                $config = $root->getConfig();
+
+                $config = array_merge($config, $extraConfig);
+
+                $root->setConfig($config);
+            }
+            if (empty($extra)) {
+                return;
+            }
+        }
+
         $rootExtra = $root->getExtra();
         $unwrapped = self::unwrapIfNeeded($root, 'setExtra');
 
