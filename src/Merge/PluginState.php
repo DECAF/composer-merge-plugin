@@ -98,6 +98,13 @@ class PluginState
     protected $mergeExtraDeep = false;
 
     /**
+     * This merges package.extra.config into package.config
+     *
+     * @var bool $mergeExtraConfig
+     */
+    protected $mergeExtraConfig = false;
+
+    /**
      * Whether to merge the scripts section.
      *
      * @var bool $mergeScripts
@@ -148,6 +155,7 @@ class PluginState
                 'merge-dev' => true,
                 'merge-extra' => false,
                 'merge-extra-deep' => false,
+                'merge-extra-config' => false,
                 'merge-scripts' => false,
             ),
             isset($extra['merge-plugin']) ? $extra['merge-plugin'] : array()
@@ -163,6 +171,7 @@ class PluginState
         $this->mergeDev = (bool)$config['merge-dev'];
         $this->mergeExtra = (bool)$config['merge-extra'];
         $this->mergeExtraDeep = (bool)$config['merge-extra-deep'];
+        $this->mergeExtraConfig = (bool)$config['merge-extra-config'];
         $this->mergeScripts = (bool)$config['merge-scripts'];
     }
 
@@ -401,6 +410,16 @@ class PluginState
         return $this->mergeExtraDeep;
     }
 
+
+    /**
+     * Should the extra config section be merged?
+     *
+     * @return bool
+     */
+    public function shouldMergeExtraConfig()
+    {
+        return $this->mergeExtraConfig;
+    }
 
     /**
      * Should the scripts section be merged?
